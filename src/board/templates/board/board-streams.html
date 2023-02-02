@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block head_title %}Board一覧{% endblock %}
+{% block content %}
+<div class="container">
+    {% if object_list %}
+        {% for obj in object_list %}
+            <div class="card my-3">
+                <div class="card-body">
+                    <h5 class="card-title">
+                      {{ obj.type }}  |  {{ obj.streamer_name }}  {{ obj.title }}
+                    </h5>
+                    <p class="card-text">
+                        {{ obj.content }}
+                    </p>
+                </div>
+                <div class="card-footer">
+                  {{ obj.date|date:"Y年n年j日" }}
+                </div>
+            </div>
+        {% endfor %}
+      {% else %}
+        <div>Boardが見つかりません</div>
+      {% endif %}
+</div>
+{% endblock %}
