@@ -169,8 +169,8 @@ def TwitchApi(request):
         url += str(user)
 
     headers = CaseInsensitiveDict()
-    headers["Authorization"] = "Bearer 7cojallfxvdsgmj8bwcy78t0uplo63"
-    headers["Client-Id"] = "w01hkdyk5ur7u6rj186tfbr5qqas5x"
+    headers["Authorization"] = "Bearer "
+    headers["Client-Id"] = ""
 
     resp = requests.get(url, headers=headers)
     user_resp = requests.get(user_url, headers=headers)
@@ -194,7 +194,3 @@ def TwitchApi(request):
     ctx = {'stream_list_length': stream_list_length, 'title': stream_titles}
     return render(request, template_name, ctx)
 
-
-# {"access_token":"od3l11bla20jwb42906sujcxpuoy79","expires_in":4985227,"token_type":"bearer"}
-# {"access_token":"7cojallfxvdsgmj8bwcy78t0uplo63","expires_in":4666116,"token_type":"bearer"}
-# curl -H 'Client-ID: w01hkdyk5ur7u6rj186tfbr5qqas5x' -H 'Authorization: Bearer 7cojallfxvdsgmj8bwcy78t0uplo63' -X GET 'https://api.twitch.tv/helix/streams?user_login=stylishnoob4&user_login=fps_shaka' | python3 -c 'import sys,json;print(json.dumps(json.loads(sys.stdin.read()),indent=4,ensure_ascii=False))'
