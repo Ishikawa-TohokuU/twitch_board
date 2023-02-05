@@ -1,11 +1,12 @@
 from django.urls import path
 from .views import (TopView,
                     StreamView,
+                    StreamDetailView,
                     )
 
 urlpatterns = [
   path("", TopView, name="board-top"),
-  # path("detail/<int:pk>/", NippoDetailView.as_view(), name="nippo-detail"),
+  path("streams/<int:pk>/", StreamDetailView.as_view(), name="board-detail"),
   path("streams/", StreamView.as_view(), name="board-streams"),
   # path("detail/<int:pk>/", nippoDetailView, name="nippo-detail"),
 

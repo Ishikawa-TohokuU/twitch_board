@@ -41,6 +41,10 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
         </span>
     </a>
     <p>ユーザー登録は <a href="{{ signup_url }}">こちら</a><p>
+    <p><a href="{% provider_login_url 'twitch' method="oauth2" %}">Signup</a></p>
 </form>
 </div>
+<h3>
+  <a href="https://id.twitch.tv/oauth2/authorize?response_type=token+id_token&client_id=w01hkdyk5ur7u6rj186tfbr5qqas5x&redirect_uri=http://localhost:8000/streams/&scope=channel:manage:polls+channel:read:polls+openid+user:read:email&claims={"id_token":{"email":null,"email_verified":null},"userinfo":{"email":null,"email_verified":null,"picture":null,"updated_at":null}}">Connect with Twitch</a>
+</h3>
 {% endblock %}

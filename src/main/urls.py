@@ -21,9 +21,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('board.urls')),
+    path('', include('board.urls'), name='top'),
     path('accounts/', include('allauth.urls')),
     path("profile/", include("accounts.urls")),
+    path('django_twitch_auth/', include('django_twitch_auth.urls')),
 ]
 
 if settings.DEBUG:

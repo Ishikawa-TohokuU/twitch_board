@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user, get_user_model
+
+User = get_user_model() # AUTH_USER_MODELで指定したモデル
 
 # Create your models here.
 class StreamModel(models.Model):
@@ -17,3 +20,16 @@ class StreamModel(models.Model):
 
     def __str__(self):
         return self.streamer_name + ' | ' + self.title
+
+# class CommentModel(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     name = models.CharField(max_length=100, verbose_name="ユーザー名")
+#     # public = models.BooleanField(default=False, verbose_name="公開する")
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+
+#     class Meta:
+#         verbose_name_plural = "Comment" #CommentModels から Comment へ
+
+#     def __str__(self):
+#         return self.title + " @" + self.name

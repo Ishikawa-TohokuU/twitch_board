@@ -18,4 +18,4 @@ class ProfileUpdateView(OwnProfileOnly, UpdateView):
     template_name = "accounts/profile-form.html"
     model = Profile
     form_class=ProfileUpdateForm
-    success_url = reverse_lazy("nippo-list")
+    success_url = reverse_lazy("board-streams")

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from . import settings_local
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,7 +51,16 @@ INSTALLED_APPS = [
     "crispy_forms",
     # 'nippo.apps.NippoConfig',
     'board',
+
+    #Twitch
+    'django_twitch_auth',
+    'allauth.socialaccount.providers.twitch',
+    # 'django.contrib.sites.models.Site'
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+                           "twitch": {"SCOPE": ["user_read"]},
+                          }
 
 AUTH_USER_MODEL = 'accounts.User' #アプリ名.モデル名
 
@@ -62,6 +72,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    #Twitch
+    # 'django_twitch_auth.middlewares.TwitchAuthenticationMiddleware',
 ]
 
 ROOT_URLCONF = 'main.urls'
@@ -147,32 +160,47 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = [ 
   'django.contrib.auth.backends.ModelBackend',     
   'allauth.account.auth_backends.AuthenticationBackend',
+
+    #Twitch
+  'django_twitch_auth.authbackends.TwitchBackend',
 ] 
 
-SITE_ID = 1
+SITE_ID = 2
 
-#ユーザーネームは使わない
-ACCOUNT_USERNAME_REQUIRED = False 
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+# ユーザーネームは使わない
+# ACCOUNT_USERNAME_REQUIRED = False 
+# ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
-#認証にはメールアドレスを使用する
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
+# 認証にはメールアドレスを使用する
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_REQUIRED = True
+
+### add ###
+ACCOUNT_USERNAME_REQUIRED = True
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_EMAIL_REQUIRED = False
+###     ###
+
+#ログイン画面を何処にするかの設定
+LOGIN_URL = '/accounts/login/'  
 
 #ログイン後のリダイレクト先を指定
 from django.urls import reverse_lazy
-LOGIN_REDIRECT_URL = reverse_lazy('nippo-list')
+LOGIN_REDIRECT_URL = reverse_lazy('board-top')
 
 #ログアウト後のリダイレクト先を指定
 ACCOUNT_LOGOUT_REDIRECT_URL = reverse_lazy("account_login")
 
 #メールアドレスが確認済みである必要がある
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
+#コンソール上にメッセージを表示
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
 
 #即ログアウトとする
 ACCOUNT_LOGOUT_ON_GET = True
-
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -181,3 +209,9 @@ ACCOUNT_ADAPTER = "accounts.adapter.MyNippoAdapter"
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
+
+TWITCH_CLIENT_ID = settings_local.TWITCH_CLIENT_ID
+TWITCH_CLIENT_SECRET = settings_local.TWITCH_CLIENT_SECRET
+TWITCH_REDIRECT_URI = 'https://localhost:8000/accounts/twitch/login/callback/'
+
+SOCIALACCOUNT_LOGIN_ON_GET = True

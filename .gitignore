@@ -14,6 +14,7 @@ auth
 *.pyc
 __pycache__/
 local_settings.py
+settings_local.py
 settings_nippo_local.py
 settings_board_local.py
 db.sqlite3

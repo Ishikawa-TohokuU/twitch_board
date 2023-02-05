@@ -21,7 +21,12 @@
 <p class="text-center">
   {% blocktrans with confirmation.email_address.email as email %}Eメールアドレス：
     <a href="mailto:{{ email }}">{{ email }}</a>
-    が、ユーザー「{{ user_display }}」さんのものであることを確認してください。
+    が、ユーザー「{{ user_display }}」さんのものであることを確認してください。aaaa
+    {{ user }}
+    {{ sub }}
+    {{ aud }}
+    {{ request }}
+    {{ picture }}
   {% endblocktrans %}
 </p>
 

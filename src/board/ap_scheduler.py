@@ -81,11 +81,12 @@ def periodic_execution():# 任意の関数名
             obj_type.type = streams[stream_idx]['type']
             obj_type.save()
 
-    print("10 seconds")
+    print('access_token = ', access_token)
+    print("1 minute")
 
     ctx = {'stream_list_length': stream_list_length}
 
 def start():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(periodic_execution, 'interval', seconds=10)# 1分おきに実行
+    scheduler.add_job(periodic_execution, 'interval', seconds=60)# 1分おきに実行
     scheduler.start()
