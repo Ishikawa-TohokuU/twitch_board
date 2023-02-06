@@ -59,7 +59,11 @@ INSTALLED_APPS = [
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
-                           "twitch": {"SCOPE": ["user_read"]},
+                           "twitch": { 
+                                "SCOPE": [
+                                    "user_read"
+                                ]
+                            },
                           }
 
 AUTH_USER_MODEL = 'accounts.User' #アプリ名.モデル名
@@ -165,21 +169,24 @@ AUTHENTICATION_BACKENDS = [
   'django_twitch_auth.authbackends.TwitchBackend',
 ] 
 
-SITE_ID = 2
+SITE_ID = 3
 
 # ユーザーネームは使わない
-# ACCOUNT_USERNAME_REQUIRED = False 
-# ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False 
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
 # 認証にはメールアドレスを使用する
-# ACCOUNT_AUTHENTICATION_METHOD = 'email'
-# ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
 
 ### add ###
-ACCOUNT_USERNAME_REQUIRED = True
+# ACCOUNT_USERNAME_REQUIRED = True
 
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
-ACCOUNT_EMAIL_REQUIRED = False
+# ACCOUNT_AUTHENTICATION_METHOD = 'username'
+# ACCOUNT_EMAIL_REQUIRED = False
+
+# # SOCIALACCOUNT_EMAIL_VERIFICATION = False
+# # SOCIALACCOUNT_EMAIL_REQUIRED = False
 ###     ###
 
 #ログイン画面を何処にするかの設定
@@ -193,8 +200,8 @@ LOGIN_REDIRECT_URL = reverse_lazy('board-top')
 ACCOUNT_LOGOUT_REDIRECT_URL = reverse_lazy("account_login")
 
 #メールアドレスが確認済みである必要がある
-# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# ACCOUNT_EMAIL_VERIFICATION = "none"
 
 #コンソール上にメッセージを表示
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
