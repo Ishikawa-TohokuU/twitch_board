@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="card mx-auto my-5 w-75" style="min-width:300px;">
+        <div class="card-header">
+            <img src="{{ object.image }}" style="width:120px;"/>
+        </div>
+        <div class="card-body pb-3">
+            <h3 class="card-title mb-3 px-2" style="border-bottom:solid 1px #f4f4f4;">
+                {{ object.type }}　
+                {{ object.streamer_name }} ({{ object.streamer }})
+            </h3>
+        </div>
+        <div class="card-footer">
+            <a href={% url 'board-streamers' %} class="btn btn-danger btn-sm">ストリーマー へ戻る</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

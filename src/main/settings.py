@@ -66,7 +66,7 @@ SOCIALACCOUNT_PROVIDERS = {
                             },
                           }
 
-AUTH_USER_MODEL = 'accounts.User' #アプリ名.モデル名
+AUTH_USER_MODEL = 'accounts.CustomUser' #アプリ名.モデル名
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -169,7 +169,7 @@ AUTHENTICATION_BACKENDS = [
   'django_twitch_auth.authbackends.TwitchBackend',
 ] 
 
-SITE_ID = 3
+SITE_ID = 4
 
 # ユーザーネームは使わない
 ACCOUNT_USERNAME_REQUIRED = False 
@@ -211,7 +211,7 @@ ACCOUNT_LOGOUT_ON_GET = True
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-ACCOUNT_ADAPTER = "accounts.adapter.MyNippoAdapter"
+# ACCOUNT_ADAPTER = "accounts.adapter.AccountAdapter"
 
 BOOTSTRAP4 = {
     'include_jquery': True,

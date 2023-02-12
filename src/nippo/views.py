@@ -76,6 +76,7 @@ class NippoCreateFormView(FormView):
     form_class = NippoFormClass
     # success_url = "/nippo/" #redirectみたいな。送信後どこに行くか
     success_url = reverse_lazy("nippo-list") #処理を待ってreverseする。メソッドの中ならreverseでもOK
+   
     def form_valid(self, form):
         data = form.cleaned_data #辞書型でformを受け取る
         obj = NippoModel(**data) #forms.pyとmodels.pyの"title"と"content"が同じ名前だからこれで展開できる

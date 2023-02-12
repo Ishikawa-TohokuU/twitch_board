@@ -14,7 +14,11 @@
             <p class="card-text my-3 px-5">{{ object.game_name }}</p>
         </div>
         <div class="card-footer">
-            <a href={% url 'board-streams' %} class="btn btn-danger btn-sm">戻る</a>
+            {% if object.type == 'live' %}
+                <a href={% url 'board-streams' %} class="btn btn-danger btn-sm">配信中 へ戻る</a>
+            {% else %}
+                <a href={% url 'board-archives' %} class="btn btn-danger btn-sm">アーカイブ へ戻る</a>
+            {% endif %}
         </div>
     </div>
 </div>
