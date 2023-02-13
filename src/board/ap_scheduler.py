@@ -151,6 +151,8 @@ def periodic_execution():# 任意の関数名
                 obj_streamer.save()
         else:
             obj_type = StreamModel.objects.get(stream_id=streams[stream_idx]['id'])
+            obj_type.title=streams[stream_idx]['title']
+            obj_type.game_name=streams[stream_idx]['game_name']
             obj_type.type = streams[stream_idx]['type']
             obj_type.viewer_count = int(streams[stream_idx]['viewer_count'])
             obj_type.save()

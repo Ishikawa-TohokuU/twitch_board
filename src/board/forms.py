@@ -14,9 +14,10 @@ class StreamFormClass(forms.Form):
     #     self.base_fields["title"].initial = "base_fields title"
     #     super().__init__(*args, **kwargs)
 
-    def __init__(self, *args, **kwargs): # Bootstrapのclassをフォームに適用
+    def __init__(self, user=None, *args, **kwargs): # Bootstrapのclassをフォームに適用
         # print(self.base_fields["title"])
         for field in self.base_fields.values():
             field.widget.attrs.update({"class":"form-control"})
+        self.user = user
         super().__init__(*args, **kwargs) #継承元を引き継ぐ
 

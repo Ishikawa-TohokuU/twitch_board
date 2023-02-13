@@ -80,12 +80,25 @@ class StreamerView(ListView): #クラス作成
         return StreamerModel.objects.search(query=q)
     
 
-class StreamDetailView(DetailView):
-    template_name = "board/board-detail.html"
-    model = StreamModel
+# class StreamDetailView(DetailView):
+#     template_name = "board/board-detail.html"
+#     model = StreamModel
+#     model_comment = CommentModel
 
-    def get_object(self):
-        return super().get_object()
+#     def get_object(self):
+#         return super().get_object()
+
+def StreamDetailView(request, **kwargs):
+    obj_stream = StreamModel.objects.get(pk=kwargs["pk"])
+    obj_comment = CommentModel.objects.filter(stream_id=obj_stream.stream_id).order_by('-created_at')
+    comment_count = obj_comment.count()
+    # print('count=', comment_count)
+    # print(obj_comment[0])
+    context = {}
+    context["stream"] = obj_stream
+    context["comment_list"] = obj_comment
+    context["comment_count"] = comment_count
+    return render(request, 'board/board-detail.html', context)
 
 class CommentCreateFormView(FormView):
     template_name = "board/board-commentform.html"
@@ -94,9 +107,21 @@ class CommentCreateFormView(FormView):
     def get_success_url(self, **kwargs):
         return reverse_lazy("board-detail", kwargs={"pk":self.kwargs["pk"]}) #処理を待ってreverseする。メソッドの中ならreverseでもOK
    
+    # def get_form_kwargs(self, *args, **kwargs):
+    #     kwgs = super().get_form_kwargs(*args, **kwargs)
+    #     kwgs["user"] = self.request.user
+    #     return kwgs
+
     def form_valid(self, form):
         data = form.cleaned_data #辞書型でformを受け取る
         obj = CommentModel(**data) #forms.pyとmodels.pyの"content"が同じ名前だからこれで展開できる
+        obj_stream = StreamModel.objects.get(pk=self.kwargs["pk"])
+        # obj_streamer = StreamerModel.objects.filter(streamer_id=obj_stream.streamer_id)
+        # obj["user"] = self.request.user
+        print(obj_stream, obj_stream.stream_id)
+        obj.user = self.request.user
+        obj.stream_id = obj_stream.stream_id
+        obj.streamer_id = obj_stream.streamer_id
         obj.save()
         return super().form_valid(form)
 

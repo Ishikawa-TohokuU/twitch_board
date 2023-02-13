@@ -169,7 +169,7 @@ AUTHENTICATION_BACKENDS = [
   'django_twitch_auth.authbackends.TwitchBackend',
 ] 
 
-SITE_ID = 4
+SITE_ID = 5
 
 # ユーザーネームは使わない
 ACCOUNT_USERNAME_REQUIRED = False 

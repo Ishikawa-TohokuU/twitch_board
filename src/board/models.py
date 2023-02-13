@@ -91,9 +91,10 @@ class StreamerModel(models.Model):
 class CommentModel(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100, verbose_name="ユーザー名")
-    stream_id =  models.ForeignKey(StreamModel, on_delete=models.CASCADE, null=True, blank=True)
-    streamer_id = models.ForeignKey(StreamerModel, on_delete=models.CASCADE, null=True, blank=True)
+    stream_id =  models.IntegerField(null=True, blank=True, verbose_name="配信id")
+    streamer_id = models.IntegerField(null=True, blank=True, verbose_name="ストリーマーid")
     content = models.CharField(max_length=400, verbose_name="投稿内容")
+    id_for_stream = models.IntegerField(null=True, blank=True, verbose_name="配信毎のid")
     # public = models.BooleanField(default=False, verbose_name="公開する")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
