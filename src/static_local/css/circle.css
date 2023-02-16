@@ -1,0 +1,53 @@
+.circle {
+    box-sizing: border-box;
+    width: 80px;
+    height:80px;
+    border-radius: 50%;/*角丸*/
+    object-fit:cover;
+    /* outline: solid 3px #9147FF;    外側の線になる一本線の枠線をひく */
+	/* outline-offset: 0px;        外側の線と内側の線の空き具合を調整 */
+	margin: -0.2rem;  
+}
+
+.circle_purple {
+    border: 0.2rem solid #9147FF;
+    box-sizing: border-box;
+    width: 80px;
+    height:80px;
+    border-radius: 50%;/*角丸*/
+    object-fit:cover;
+    /* outline: solid 3px #9147FF;    外側の線になる一本線の枠線をひく */
+	/* outline-offset: 0px;        外側の線と内側の線の空き具合を調整 */
+	margin: -0.2rem;  
+}
+
+.circle_red {
+    border: 0.2rem solid #CC0000;
+    box-sizing: border-box;
+    width: 80px;
+    height:80px;
+    border-radius: 50%;/*角丸*/
+    object-fit:cover;
+    /* outline: solid 3px #9147FF;    外側の線になる一本線の枠線をひく */
+	/* outline-offset: 0px;        外側の線と内側の線の空き具合を調整 */
+	margin: -0.2rem;  
+}
+
+.double-circle {	
+	/* content: "";
+	width: 90px;
+	height: 90px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	border: solid #4169e1 3px;
+	border-radius: 45%;
+	box-sizing: border-box; */
+
+    border: 3px solid #000000;
+    box-sizing: border-box;
+    width: 60px;
+    height:60px;
+    border-radius: 50%;/*角丸*/
+    object-fit:cover;
+}

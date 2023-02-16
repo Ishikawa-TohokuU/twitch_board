@@ -88,6 +88,7 @@ from django.dispatch import receiver
 # import requests
 
 class CustomUser(AbstractUser):
+    image = models.ImageField(null=True, blank=True)
     # first_name = None
     def get_id(self):
         """Return the id for the user."""

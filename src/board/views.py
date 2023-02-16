@@ -7,6 +7,8 @@ from .forms import StreamFormClass
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, FormView
 import time
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 def TopView(request):
@@ -25,6 +27,25 @@ class StreamView(ListView): #クラス作成
     
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)
+        obj_stream = StreamModel.objects.filter(type='live')
+        stream_count = obj_stream.count()
+        print(stream_count)
+        obj_streamer = StreamerModel.objects.none()
+        for stream in obj_stream:
+            comment_num = CommentModel.objects.filter(stream_id=stream.stream_id).count()
+            # print('stream_id=', stream.stream_id)
+            # print(CommentModel.objects.get(stream_id=stream.stream_id))
+            # obj_comment = CommentModel.objects.get(stream_id=stream.stream_id)
+            print(type(comment_num))
+            print(stream.comment_count)
+            stream.comment_count = comment_num
+            stream.save()
+            # streamer = StreamerModel.objects.get(streamer_id=stream.streamer_id)
+            # obj_streamer = obj_streamer.union(streamer, all=True)
+        # print(obj_streamer)
+        ctx["streamer"] = obj_streamer
+        # ctx["comment"] = obj_comment
+        print(type(obj_streamer))
         return ctx
     
     def get_queryset(self):
@@ -46,6 +67,16 @@ class ArchiveView(ListView): #クラス作成
     
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)
+        obj_stream = StreamModel.objects.filter(type='offline')
+        for stream in obj_stream:
+            comment_num = CommentModel.objects.filter(stream_id=stream.stream_id).count()
+            # print('stream_id=', stream.stream_id)
+            # print(CommentModel.objects.get(stream_id=stream.stream_id))
+            # obj_comment = CommentModel.objects.get(stream_id=stream.stream_id)
+            print(type(comment_num))
+            print(stream.comment_count)
+            stream.comment_count = comment_num
+            stream.save()
         return ctx
     
     def get_queryset(self):
@@ -100,7 +131,7 @@ def StreamDetailView(request, **kwargs):
     context["comment_count"] = comment_count
     return render(request, 'board/board-detail.html', context)
 
-class CommentCreateFormView(FormView):
+class CommentCreateFormView(LoginRequiredMixin, FormView):
     template_name = "board/board-commentform.html"
     form_class = StreamFormClass
     # success_url = "/nippo/" #redirectみたいな。送信後どこに行くか
@@ -125,10 +156,24 @@ class CommentCreateFormView(FormView):
         obj.save()
         return super().form_valid(form)
 
-class StreamerDetailView(DetailView):
-    template_name = "board/board-streamersdetail.html"
-    model = StreamerModel
+# class StreamerDetailView(DetailView):
+#     template_name = "board/board-streamersdetail.html"
+#     model = StreamerModel
+#     obj_user_comment = CommentModel.objects.filter()
 
-    def get_object(self):
-        return super().get_object()
+#     def get_object(self):
+#         return super().get_object()
 
+def StreamerDetailView(request, **kwargs):
+    obj_streamer = StreamerModel.objects.get(pk=kwargs["pk"])
+    obj_comment = CommentModel.objects.filter(streamer_id=obj_streamer.streamer_id).order_by('-created_at')
+    obj_stream = StreamModel.objects.filter(streamer_id=obj_streamer.streamer_id).order_by('-starttime')
+    comment_count = obj_comment.count()
+    # print('count=', comment_count)
+    # print(obj_comment[0])
+    context = {}
+    context["streamer"] = obj_streamer
+    context["comment_list"] = obj_comment
+    context["stream_list"] = obj_stream
+    context["comment_count"] = comment_count
+    return render(request, 'board/board-streamersdetail.html', context)

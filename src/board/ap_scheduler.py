@@ -66,14 +66,16 @@ def periodic_execution():# 任意の関数名
                                 streamer_name=streamers[streamer_idx]['display_name'],
                                 type='offline',
                                 image=streamers[streamer_idx]['profile_image_url'],
+                                channel='https://www.twitch.tv/'+str(streamers[streamer_idx]['login']),
             )
             obj_streamer.save()
         else:
             obj_streamer_update = StreamerModel.objects.get(streamer_id=streamers[streamer_idx]['id'])
-            obj_streamer_update.streamer = streamer=streamers[streamer_idx]['login']
-            obj_streamer_update.streamer_name = streamer=streamers[streamer_idx]['display_name']
+            obj_streamer_update.streamer = streamers[streamer_idx]['login']
+            obj_streamer_update.streamer_name = streamers[streamer_idx]['display_name']
             obj_streamer_update.type = 'offline'
-            obj_streamer_update.image = streamer=streamers[streamer_idx]['profile_image_url']
+            obj_streamer_update.image = streamers[streamer_idx]['profile_image_url']
+            obj_streamer_update.channel='https://www.twitch.tv/'+str(streamers[streamer_idx]['login'])
             obj_streamer_update.save()
 
     users_list = ['user_login=stylishnoob4&',
@@ -139,6 +141,7 @@ def periodic_execution():# 任意の関数名
                               starttime=streams[stream_idx]['started_at'],
                               type=streams[stream_idx]['type'],
                               viewer_count=int(streams[stream_idx]['viewer_count']),
+                              thumbnail = streams[stream_idx]['thumbnail_url'].replace('{width}', '440').replace('{height}', '228')
             )
             obj.save()
             if not StreamerModel.objects.filter(streamer_id=streams[stream_idx]['user_id']): # 配信者のデータがまだ存在しない場合
@@ -155,6 +158,7 @@ def periodic_execution():# 任意の関数名
             obj_type.game_name=streams[stream_idx]['game_name']
             obj_type.type = streams[stream_idx]['type']
             obj_type.viewer_count = int(streams[stream_idx]['viewer_count'])
+            obj_type.thumbnail = streams[stream_idx]['thumbnail_url'].replace('{width}', '440').replace('{height}', '228')
             obj_type.save()
 
             obj_streamer_type = StreamerModel.objects.get(streamer_id=streams[stream_idx]['user_id'])

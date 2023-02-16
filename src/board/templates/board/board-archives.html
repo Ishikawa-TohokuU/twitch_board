@@ -13,15 +13,21 @@
               {% if obj.type == 'offline' %}
                 <div class="card my-3">
                     <div class="card-body">
+                      <div class="card-body">
+                        <a href={% url 'board-detail' obj.pk %}>
+                          <img src="{{ obj.thumbnail }}" />
+                        </a>
+                      </div>
                         <h5 class="card-title">
                           {{ obj.type }}  |   
                           <a href={% url 'board-detail' obj.pk %}>
                               {{ obj.streamer_name }} ( {{ obj.streamer }} ) {{ obj.title }}
                           </a>
-                          　　配信開始：　{{ obj.starttime|date:"Y/n/j　G:m" }}
+                          　　配信開始：　{{ obj.starttime|date:"Y/n/j　G:i" }}
                         </h5>
                     </div>
                     <div class="card-footer">
+                      投稿数：{{ obj.comment_count }}
                       {{ obj.date|date:"Y年n年j日" }}
                     </div>
                 </div>

@@ -12,19 +12,28 @@
           {% for obj in object_list %}
               {% if obj.type == 'live' %}
                 <div class="card my-3">
+                  <div class="card-header">
+                    <a href="{{ streamer.channel.0 }}">
+                      <img src="{{ streamer.image }}" class="circle_purple"/>
+                    </a>
+                  </div>
                     <div class="card-body">
+                        <a href={% url 'board-detail' obj.pk %}>
+                          <img src="{{ obj.thumbnail }}" />
+                        </a>
                         <h5 class="card-title">
                           {{ obj.type }}  |   
                           <a href={% url 'board-detail' obj.pk %}>
                               {{ obj.streamer_name }} ( {{ obj.streamer }} )  {{ obj.title }}
                           </a>
-                          　配信開始： {{ obj.starttime|date:"Y/n/j　G:m" }}
+                          　配信開始： {{ obj.starttime|date:"Y/n/j　G:i" }}
                         </h5>
                         <p class="card-text">
                             Viewers:   {{ obj.viewer_count }}
                         </p>
                     </div>
                     <div class="card-footer">
+                      投稿数：{{ obj.comment_count }}
                       {{ obj.date|date:"Y年n年j日" }}
                     </div>
                 </div>

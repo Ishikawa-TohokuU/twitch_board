@@ -15,9 +15,12 @@
         </div>
         <div class="card-footer">
             {% if stream.type == 'live' %}
-                <a href={% url 'board-streams' %} class="btn btn-danger btn-sm">配信中 へ戻る</a>
+                <a href={% url 'board-streams' %} class="btn btn-outline-danger btn-sm"><h5>配信中 へ戻る</h5></a>
             {% else %}
-                <a href={% url 'board-archives' %} class="btn btn-danger btn-sm">アーカイブ へ戻る</a>
+                <a href={% url 'board-archives' %} class="btn btn-outline-danger btn-sm"><h5>アーカイブ へ戻る</h5></a>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+                　<a href={% url 'board-commentform' stream.pk %} class="btn btn-outline-secondary btn-sm"><h5>投稿する</h5></a>
             {% endif %}
         </div>
     </div>
@@ -39,6 +42,7 @@
                         </p>
                     </div>
                     <div class="card-footer">
+                        {{ comment.created_at }}
                     </div>
                 </div>
           {% endfor %}

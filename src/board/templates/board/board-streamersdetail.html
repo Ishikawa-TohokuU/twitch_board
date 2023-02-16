@@ -1,20 +1,67 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <div class="container">
     <div class="card mx-auto my-5 w-75" style="min-width:300px;">
         <div class="card-header">
-            <img src="{{ object.image }}" style="width:120px;"/>
+            {% if streamer.type == "live" %}
+                <a href="{{ streamer.channel }}">
+                    <img src="{{ streamer.image }}" class="circle_purple"/>
+                </a>
+            {% else %}
+                <img src="{{ streamer.image }}" class="circle"/>
+            {% endif %}
         </div>
         <div class="card-body pb-3">
             <h3 class="card-title mb-3 px-2" style="border-bottom:solid 1px #f4f4f4;">
-                {{ object.type }}　
-                {{ object.streamer_name }} ({{ object.streamer }})
+                {{ streamer.type }}　
+                {{ streamer.streamer_name }} ({{ streamer.streamer }})
             </h3>
+            {% if request.user.is_authenticated %}
+            <h4>
+                {{ user }}の{{ streamer.streamer_name }}への投稿数：{{ comment_count}}
+            </h4>
+            {% endif %}
         </div>
         <div class="card-footer">
-            <a href={% url 'board-streamers' %} class="btn btn-danger btn-sm">ストリーマー へ戻る</a>
+            <a href={% url 'board-streamers' %} class="btn btn-outline-danger btn-sm"><h5>ストリーマー へ戻る</h5></a>
         </div>
     </div>
+    {% if stream_list %}
+          {% for stream in stream_list %}
+               {% if stream.type == 'live' %}
+                    <div class="card my-3">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{ stream.type }}  |   
+                                <a href={% url 'board-detail' stream.pk %}>
+                                    {{ stream.streamer_name }} ( {{ stream.streamer }} ) {{ stream.title }}
+                                </a>
+                                　　配信開始：　{{ stream.starttime|date:"Y/n/j　G:m" }}
+                            </h5>
+                        </div>
+                        <div class="card-footer">
+                            {{ stream.date|date:"Y年n年j日" }}
+                        </div>
+                    </div>
+              {% endif %}
+              {% if stream.type == 'offline' %}
+                <div class="card my-3">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                          {{ stream.type }}  |   
+                          <a href={% url 'board-detail' stream.pk %}>
+                              {{ stream.streamer_name }} ( {{ stream.streamer }} ) {{ stream.title }}
+                          </a>
+                          　　配信開始：　{{ stream.starttime|date:"Y/n/j　G:m" }}
+                        </h5>
+                    </div>
+                    <div class="card-footer">
+                      {{ stream.date|date:"Y年n年j日" }}
+                    </div>
+                </div>
+              {% endif %}
+          {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}

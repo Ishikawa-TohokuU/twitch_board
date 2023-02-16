@@ -11,6 +11,15 @@
     {% if object_list %}
           {% for obj in object_list %}
                 <div class="card my-3">
+                  <div class="card-header">
+                    {% if obj.type == "live" %}
+                        <a href="{{ obj.channel }}">
+                            <img src="{{ obj.image }}" class="circle_purple"/>
+                        </a>
+                    {% else %}
+                        <img src="{{ obj.image }}" class="circle"/>
+                    {% endif %}
+                  </div>
                     <div class="card-body">
                         <h5 class="card-title">
                           {{ obj.type }}  |   

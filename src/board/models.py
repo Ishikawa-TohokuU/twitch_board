@@ -36,6 +36,8 @@ class StreamModel(models.Model):
     starttime = models.DateTimeField()
     type = models.CharField(default='offline', max_length=100, verbose_name="状態")
     viewer_count = models.IntegerField(default=0, verbose_name="視聴者数")
+    thumbnail = models.ImageField(null=True, blank=True)
+    comment_count = models.IntegerField(null=True, blank=True, verbose_name="コメント数")
 
     class Meta:
         verbose_name_plural = "Board" #StreamModels から Board へ
@@ -78,6 +80,7 @@ class StreamerModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     type = models.CharField(default='offline', max_length=100, verbose_name="状態")
     image = models.ImageField(null=True, blank=True)
+    channel = models.CharField(max_length=100, verbose_name="チャンネルURL", null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "ストリーマー" #StreamModels から Board へ
