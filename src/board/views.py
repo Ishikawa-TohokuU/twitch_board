@@ -73,8 +73,8 @@ class ArchiveView(ListView): #クラス作成
             # print('stream_id=', stream.stream_id)
             # print(CommentModel.objects.get(stream_id=stream.stream_id))
             # obj_comment = CommentModel.objects.get(stream_id=stream.stream_id)
-            print(type(comment_num))
-            print(stream.comment_count)
+            # print(type(comment_num))
+            # print(stream.comment_count)
             stream.comment_count = comment_num
             stream.save()
         return ctx
