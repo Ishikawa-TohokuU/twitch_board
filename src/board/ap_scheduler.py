@@ -46,8 +46,7 @@ def periodic_execution():# 任意の関数名
                   'login=syaruru3&',
                   'login=oniyadayo&',
                   'login=Lazvell&',
-                  'login=rikojoy_&',
-                  'login=akechiinthehouse',
+                  'login=Anzu_o0',
                   ]
             
     url_streamer = "https://api.twitch.tv/helix/users?"
@@ -102,8 +101,7 @@ def periodic_execution():# 任意の関数名
                   'user_login=syaruru3&',
                   'user_login=oniyadayo&',
                   'user_login=Lazvell&',
-                  'user_login=rikojoy_&',
-                  'user_login=akechiinthehouse',
+                  'user_login=Anzu_o0',
                   ]
 
     url = "https://api.twitch.tv/helix/streams?"

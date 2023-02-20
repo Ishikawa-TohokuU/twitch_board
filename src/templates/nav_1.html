@@ -1,34 +1,29 @@
 {% load accounts_user %}
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid" style="padding-left: 300px; padding-right: 300px;">
-      <!-- <div>
+<nav class="navbar navbar-dark bg-primary">
+    <div class="container-fluid">
+      <div>
         <a class="navbar-brand" href={% url 'board-top' %}>
           <img src="/media/pages/D-Repo.png" style="width:120px;"/>
         </a>
-      </div> -->
-      <div>
-        <a class="navbar-brand px-2" href={% url 'board-top' %}>
-          <h4>トップページ</h4>
-        </a>
       </div>
       <div>
-        <a class="navbar-brand px-2" href={% url 'board-streams' %}>
-          <h4>配信中</h4>
+        <a class="navbar-brand" href={% url 'board-streams' %}>
+          <p>配信中</p>
         </a>
       </div>
       <div>        
-        <a class="navbar-brand px-2" href={% url 'board-archives' %}>
-          <h4>アーカイブ</h4>
+        <a class="navbar-brand" href={% url 'board-archives' %}>
+          <p>アーカイブ</p>
         </a>
       </div>
       <div>        
-        <a class="navbar-brand px-2" href={% url 'board-streamers' %}>
-          <h4>ストリーマー</h4>
+        <a class="navbar-brand" href={% url 'board-streamers' %}>
+          <p>ストリーマー</p>
         </a>
       </div>
-      <!-- <div class="text-light nav-item dropdown">
+      <div class="text-light nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-
+            {{ request.user | user_display }}
           </a>
           <ul class="dropdown-menu endposition" aria-labelledby="navbarDropdown">
             {% if request.user.is_authenticated %}
@@ -41,6 +36,6 @@
               <li><a class="dropdown-item" href={% url "account_signup" %}>サインアップ</a></li>
             {% endif %}
           </ul>
-      </div> -->
+      </div>
     </div>
   </nav>

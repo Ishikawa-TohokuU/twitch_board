@@ -85,7 +85,6 @@ class ArchiveView(ListView): #クラス作成
         except:
             q = None
         return StreamModel.objects.search(query=q)
-    
 
 class StreamerView(ListView): #クラス作成
     template_name = "board/board-streamers.html" #変数
@@ -152,7 +151,7 @@ class CommentCreateFormView(FormView):
         # obj_streamer = StreamerModel.objects.filter(streamer_id=obj_stream.streamer_id)
         # obj["user"] = self.request.user
         print(obj_stream, obj_stream.stream_id)
-        # obj.user = self.request.user
+        obj.user = self.request.user
         obj.stream_id = obj_stream.stream_id
         obj.streamer_id = obj_stream.streamer_id
         obj.save()

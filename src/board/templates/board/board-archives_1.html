@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block head_title %}Board一覧{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="flex-grow-1" style="max-width:500px;">
+    <form class="d-flex" method="GET">
+      <input class="form-control me-2" type="search" placeholder="「配信タイトル」、「ストリーマー名」で検索" aria-label="Search" name="search">
+      <button class="btn btn-outline-light" type="submit">search</button>
+    </form>
+  </div>
+    {% if object_list %}
+          {% for obj in object_list %}
+              {% if obj.type == 'offline' %}
+                <div class="card my-3">
+                    <div class="card-body">
+                      <div class="card-body">
+                        <a href={% url 'board-detail' obj.pk %}>
+                          <img src="{{ obj.thumbnail }}" />
+                        </a>
+                      </div>
+                        <h5 class="card-title">
+                          {{ obj.type }}  |   
+                          <a href={% url 'board-detail' obj.pk %}>
+                              {{ obj.streamer_name }} ( {{ obj.streamer }} ) {{ obj.title }}
+                          </a>
+                          　　配信開始：　{{ obj.starttime|date:"Y/n/j　G:i" }}
+                        </h5>
+                    </div>
+                    <div class="card-footer">
+                      投稿数：{{ obj.comment_count }}
+                      {{ obj.date|date:"Y年n年j日" }}
+                    </div>
+                </div>
+              {% endif %}
+          {% endfor %}
+      {% else %}
+        <div>Boardが見つかりません</div>
+      {% endif %}
+</div>
+{% endblock %}

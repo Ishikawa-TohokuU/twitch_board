@@ -4,14 +4,14 @@
 <div class="container">
   <div class="flex-grow-1" style="max-width:500px;">
     <form class="d-flex" method="GET">
-      <input class="form-control me-2" type="search" placeholder="「ストリーマー名」で検索" aria-label="Search" name="search">
-      <button class="btn btn-outline-light" type="submit">search</button>
+      <input class="form-control me-2 my-2" type="search" placeholder="「ストリーマー名」で検索" aria-label="Search" name="search">
+      <button class="btn btn-dark my-2" type="submit">search</button>
     </form>
   </div>
     {% if object_list %}
           {% for obj in object_list %}
-                <div class="card my-3">
-                  <div class="card-header">
+                <div class="card my-3 border-dark">
+                  <div class="card-header border-dark">
                     {% if obj.type == "live" %}
                         <a href="{{ obj.channel }}">
                             <img src="{{ obj.image }}" class="circle_purple"/>
@@ -20,7 +20,7 @@
                         <img src="{{ obj.image }}" class="circle"/>
                     {% endif %}
                   </div>
-                    <div class="card-body">
+                    <div class="card-body border-dark">
                         <h5 class="card-title">
                           {{ obj.type }}  |   
                           <a href={% url 'board-streamersdetail' obj.pk %}>

@@ -4,32 +4,32 @@
 <div class="container">
   <div class="flex-grow-1" style="max-width:500px;">
     <form class="d-flex" method="GET">
-      <input class="form-control me-2" type="search" placeholder="「配信タイトル」、「ストリーマー名」で検索" aria-label="Search" name="search">
-      <button class="btn btn-outline-light" type="submit">search</button>
+      <input class="form-control me-2 my-2" type="search" placeholder="「配信タイトル」、「ストリーマー名」で検索" aria-label="Search" name="search" >
+      <button class="btn btn-dark my-2" type="submit">search</button>
     </form>
   </div>
     {% if object_list %}
           {% for obj in object_list %}
               {% if obj.type == 'offline' %}
-                <div class="card my-3">
-                    <div class="card-body">
-                      <div class="card-body">
-                        <a href={% url 'board-detail' obj.pk %}>
-                          <img src="{{ obj.thumbnail }}" />
-                        </a>
-                      </div>
-                        <h5 class="card-title">
-                          {{ obj.type }}  |   
+                <div class="card border-dark my-3">
+                    <div class="card-header border-dark bg-dark">
+                      <h5 style="color: white;">|　{{ obj.type }}  </h5>   
+                      <h5 style="color:#9147FF">{{ obj.streamer_name }} ( {{ obj.streamer }} ) </h5>
+                    </div>
+                    <div class="card-body border-dark mx-auto mt-0" style="min-height: 50px;">
+                    </div>
+                        <h4 class="card-title mx-auto"> 
                           <a href={% url 'board-detail' obj.pk %}>
-                              {{ obj.streamer_name }} ( {{ obj.streamer }} ) {{ obj.title }}
+                              {{ obj.title }}
                           </a>
-                          　　配信開始：　{{ obj.starttime|date:"Y/n/j　G:i" }}
-                        </h5>
-                    </div>
-                    <div class="card-footer">
-                      投稿数：{{ obj.comment_count }}
-                      {{ obj.date|date:"Y年n年j日" }}
-                    </div>
+                          
+                        </h4>
+                    <div class="card-footer border-dark">
+                      <h5>
+                        投稿数：{{ obj.comment_count }}
+                        　　　配信開始：{{ obj.starttime|date:"Y/n/j　G:i" }}
+                      </h5>
+                      </div>
                 </div>
               {% endif %}
           {% endfor %}
