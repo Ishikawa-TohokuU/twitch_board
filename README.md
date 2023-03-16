@@ -1,5 +1,5 @@
 # TwiBOX
-TwiBOXのページは[こちら](http://18.178.38.84/)
+TwiBOXのページは[こちら](https://twibox-board.com)
 
 ## TwiBOXの概要・意義
 TwiBOXは、配信プラットフォーム「 Twitch 」における配信やストリーマーを愛するユーザーの交流を目的としたコンテンツです。
